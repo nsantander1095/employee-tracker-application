@@ -3,6 +3,7 @@ const mysql = require('mysql2');
 require('console.table');
 const questions = require('./assets/src/questions');
 
+
 const db = mysql.createConnection({
     user: 'root',
     database: 'employees',
@@ -31,7 +32,8 @@ const showAllRoles = () => {
 };
 
 const addRole = () => {
-
+    // const addRole = questions.addRole;
+    // addRole[3].choices = 
 };
 
 const showAllDept = () => {
@@ -42,8 +44,13 @@ const showAllDept = () => {
     })
 };
 
-const addDept = () => {
-
+const addDept = async () => {
+    const input = await prompt(questions.addDept);
+    db.query('INSERT INTO department SET ?', input, (err) => {
+        if(err) throw err;
+        console.log(`Added ${input.name}`);
+        init();
+    })
 };
 
 const init = async () => {
