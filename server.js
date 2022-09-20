@@ -16,11 +16,35 @@ const showAllEmps = () => {
 };
 
 const addEmp = () => {
-
+    db.query('SELECT CONCAT(first_name, \' \', last_name) AS name, id AS value FROM employee WHERE manager_id IS NULL', (err, mgnrOptions) => {
+        if(err) throw err;
+        questions.addEmp[3].choices = mgnrOptions;
+        db.query('SELECT title AS name, id AS value FROM role', async (err, roleOptions) => {
+            if(err) throw err;
+            questions.addEmp[2].choices = roleOptions;
+            const input = await prompt(questions.addEmp);
+            db.query('INSERT INTO employee SET ?', input, (err) => {
+                if(err) throw err;
+                console.log(`Added new employee`);
+            })
+        })
+    })
 };
 
 const updateEmpRole = () => {
-
+    db.query('SELECT CONCAT(first_name, \' \', last_name) AS name, id AS value FROM employee', (err, empOptions) => {
+        if(err) throw err;
+        questions.updateEmpRole[0].choices = empOptions;
+        db.query('SELECT title AS name, id AS value FROM role', async (err, roleOptions) => {
+            if(err) throw err;
+            questions.updateEmpRole[1].choices = roleOptions;
+            const input = await prompt(questions.updateEmpRole);
+            db.query('UPDATE employee SET role_id = ? WHERE id = ?', input, (err) => {
+                if(err) throw err;
+                console.log(`Updated role for ${input.name}`);
+            })
+        })
+    })
 };
 
 const showAllRoles = () => {
@@ -34,8 +58,6 @@ const showAllRoles = () => {
 const addRole =  () => {
     db.query('SELECT name, id AS value FROM department', async (err, options) => {
         if(err) throw err;
-        // const addRole = questions.addRole;
-        //console.log(questions.addRole);
         questions.addRole[2].choices = options;
         const input = await prompt(questions.addRole);
         db.query('INSERT INTO role SET ?', input, (err) => {

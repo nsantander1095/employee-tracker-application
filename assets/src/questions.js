@@ -39,25 +39,25 @@ const questions = {
             choices: []
         },
     ],
-    appEmp: [
+    addEmp: [
         {
-            name: 'empFirst',
+            name: 'first_name',
             type: 'input',
             message: 'What is the employee\'s first name?',
         },
         {
-            name: 'empLast',
+            name: 'last_name',
             type: 'input',
             message: 'What is the employee\'s last name?',
         },
         {
-            name: 'empRole',
+            name: 'role_id',
             type: 'rawlist',
             message: 'What is the employee\'s role?',
             choices: []
         },
         {
-            name: 'empMngr',
+            name: 'manager_id',
             type: 'rawlist',
             message: 'Who is the employee\'s manager?',
             choices: []
@@ -65,13 +65,13 @@ const questions = {
     ],
     updateEmpRole: [
         {
-            name: 'empName',
+            name: 'id',
             type: 'rawlist',
             message: 'Which employee\'s role do you want to update?',
             choices: []
         },
         {
-            name: 'newEmpRole',
+            name: 'role_id',
             type: 'rawlist',
             message: 'Which role do you want to assign to the employee?',
             choices: []
