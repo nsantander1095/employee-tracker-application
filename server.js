@@ -1,3 +1,4 @@
+const { NONAME } = require('dns');
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
 require('console.table');
@@ -18,6 +19,7 @@ const showAllEmps = () => {
 const addEmp = () => {
     db.query('SELECT CONCAT(first_name, \' \', last_name) AS name, id AS value FROM employee WHERE manager_id IS NULL', (err, mgnrOptions) => {
         if(err) throw err;
+        mgnrOptions.push({name: 'none', value: null});
         questions.addEmp[3].choices = mgnrOptions;
         db.query('SELECT title AS name, id AS value FROM role', async (err, roleOptions) => {
             if(err) throw err;
@@ -39,9 +41,9 @@ const updateEmpRole = () => {
             if(err) throw err;
             questions.updateEmpRole[1].choices = roleOptions;
             const input = await prompt(questions.updateEmpRole);
-            db.query('UPDATE employee SET role_id = ? WHERE id = ?', input, (err) => {
+            db.query(`UPDATE employee SET role_id = ${input.role_id} WHERE id = ${input.id}`, input, (err) => {
                 if(err) throw err;
-                console.log(`Updated role for ${input.name}`);
+                console.log('Updated role');
             })
         })
     })
