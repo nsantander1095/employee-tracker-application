@@ -31,9 +31,19 @@ const showAllRoles = () => {
     })
 };
 
-const addRole = () => {
-    // const addRole = questions.addRole;
-    // addRole[3].choices = 
+const addRole =  () => {
+    db.query('SELECT name, id AS value FROM department', async (err, options) => {
+        if(err) throw err;
+        // const addRole = questions.addRole;
+        //console.log(questions.addRole);
+        questions.addRole[2].choices = options;
+        const input = await prompt(questions.addRole);
+        db.query('INSERT INTO role SET ?', input, (err) => {
+            if(err) throw err;
+            console.log(`Added ${input.title}`);
+            init();
+        })
+    })
 };
 
 const showAllDept = () => {

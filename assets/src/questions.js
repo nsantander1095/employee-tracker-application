@@ -23,17 +23,17 @@ const questions = {
     ],
     addRole: [
         {
-            name: 'roleName',
+            name: 'title',
             type: 'input',
             message: 'What is the name of the role?',
         },
         {
-            name: 'roleSalary',
+            name: 'salary',
             type: 'number',
             message: 'What is the salary of the role?',
         },
         {
-            name: 'roleDept',
+            name: 'department_id',
             type: 'rawlist',
             message: 'Which department does the role belong to?',
             choices: []
