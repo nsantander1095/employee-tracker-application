@@ -23,7 +23,11 @@ const updateEmpRole = () => {
 };
 
 const showAllRoles = () => {
-
+    db.query('SELECT role.id, title, salary, name AS dept FROM role JOIN department ON role.department_id = department.id', (err, role) => {
+        if(err) throw err;
+        console.table(role);
+        init();
+    })
 };
 
 const addRole = () => {
