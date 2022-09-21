@@ -12,7 +12,23 @@ const db = mysql.createConnection({
 const prompt = inquirer.createPromptModule();
 
 const showAllEmps = () => {
-    
+    db.query(`
+    SELECT
+      e.id,
+      CONCAT(e.first_name, ' ', e.last_name) AS name,
+      role.title,
+      role.salary,
+      CONCAT(m.first_name, ' ', m.last_name) AS manager_name
+    FROM employee e
+    LEFT JOIN role
+    ON e.role_id = role.id
+    LEFT JOIN employee m
+    ON e.manager_id = m.id
+    `, (err, employees) => {
+      if (err) console.log(err);
+      console.table(employees);
+      init();
+    })
 };
 
 const addEmp = () => {
@@ -32,6 +48,7 @@ const addEmp = () => {
             db.query('INSERT INTO employee SET ?', input, (err) => {
                 if(err) throw err;
                 console.log(`Added new employee`);
+                init();
             })
         })
     })
@@ -48,6 +65,7 @@ const updateEmpRole = () => {
             db.query(`UPDATE employee SET role_id = ? WHERE id = ?`, [input.role_id, input.id], (err) => {
                 if(err) throw err;
                 console.log('Updated role');
+                init();
             })
         })
     })
