@@ -52,4 +52,4 @@ SOURCE assets/db/seeds.sql
 
 ## Visuals
 
-To see a full walkthrough of the functionality of the application, visit this [link.](https://drive.google.com/file/d/1J9xcw0sXFeMeCZTFBrEPLRunfio-aaoy/view?usp=sharing)
+To see a full walkthrough of the functionality of the application, visit this [link.](https://drive.google.com/file/d/1J9xcw0sXFeMeCZTFBrEPLRunfio-aaoy/view?usp=sharing) Please note that the video starts after the dependencies have been installed and the dstatabase has been initialized and seeded.
